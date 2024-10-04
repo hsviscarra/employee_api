@@ -1,0 +1,12 @@
+# Ignore Python compiled files
+__pycache__/
+*.py[cod]
+
+# Ignore virtual environment
+venv/
+.venv/
+
+# Ignore large files
+*.jpg
+*.png
+*.zip
