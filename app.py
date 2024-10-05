@@ -112,14 +112,16 @@ def hired_employees_by_quarter():
         query = text("""
         SELECT d.department, 
                 j.job,
-                EXTRACT(QUARTER FROM he.hire_date::timestamp) AS quarter,
-                COUNT(he."ID") AS num_hired
+                COUNT(CASE WHEN EXTRACT(QUARTER FROM he.hire_date::timestamp) = 1 THEN 1 END) AS "Q1",
+                COUNT(CASE WHEN EXTRACT(QUARTER FROM he.hire_date::timestamp) = 2 THEN 1 END) AS "Q2",
+                COUNT(CASE WHEN EXTRACT(QUARTER FROM he.hire_date::timestamp) = 3 THEN 1 END) AS "Q3",
+                COUNT(CASE WHEN EXTRACT(QUARTER FROM he.hire_date::timestamp) = 4 THEN 1 END) AS "Q4"
         FROM hired_employees he
         JOIN departments d ON he.id_department = d."ID"
         JOIN jobs j ON he.id_job = j."ID"
         WHERE he.hire_date >= '2021-01-01' AND he.hire_date < '2022-01-01'
-        GROUP BY d.department, j.job, quarter
-        ORDER BY d.department, j.job, quarter;
+        GROUP BY d.department, j.job
+        ORDER BY d.department, j.job;
         """)
 
         result = session.execute(query).fetchall()
@@ -128,8 +130,10 @@ def hired_employees_by_quarter():
             {
                 "department": row[0],
                 "job": row[1],
-                "quarter": int(row[2]),
-                "num_hired": row[3]
+                "Q1": int(row[2]) if row[2] is not None else 0,
+                "Q2": int(row[3]) if row[2] is not None else 0,
+                "Q3": int(row[4]) if row[2] is not None else 0,
+                "Q4": int(row[5]) if row[2] is not None else 0,
             }
             for row in result
         ]
