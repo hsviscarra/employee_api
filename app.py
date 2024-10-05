@@ -1,14 +1,27 @@
+from dotenv import load_dotenv
 from flask import Flask, request, jsonify
 from sqlalchemy import create_engine, text  # Import text for raw SQL execution
 import pandas as pd
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.exc import SQLAlchemyError
 import math
+import os
 
 app = Flask(__name__)
 
+load_dotenv()
+
 # Define your PostgreSQL database URI here
-DATABASE_URI = 'postgresql://hernanviscarra:Buda268320@localhost:5432/postgres'
+USER_NAME=os.getenv("USER_NAME")
+PASSWORD=os.getenv("PASSWORD")
+SERVERNAME=os.getenv("SERVERNAME")
+PORT=os.getenv("PORT")
+DATABASE_NAME=os.getenv("DATABASE_NAME")
+
+print(USER_NAME, PASSWORD, SERVERNAME, PORT, DATABASE_NAME)
+
+DATABASE_URI = f'postgresql://{USER_NAME}:{PASSWORD}@{SERVERNAME}:{PORT}/{DATABASE_NAME}'
+print(DATABASE_URI)
 engine = create_engine(DATABASE_URI)
 Session = sessionmaker(bind=engine)
 
