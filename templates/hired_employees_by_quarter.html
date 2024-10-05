@@ -4,42 +4,50 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hired Employees by Quarter</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
+        body {
+            padding: 20px;
+        }
         table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        th, td {
-            border: 1px solid #dddddd;
-            text-align: left;
-            padding: 8px;
-        }
-        th {
-            background-color: #f2f2f2;
+            margin-top: 20px;
         }
     </style>
 </head>
 <body>
-    <h1>Hired Employees by Quarter</h1>
-    <table>
-        <thead>
-            <tr>
-                <th>Department</th>
-                <th>Job</th>
-                <th>Quarter</th>
-                <th>Number Hired</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for row in data %}
-            <tr>
-                <td>{{ row.department }}</td>
-                <td>{{ row.job }}</td>
-                <td>{{ row.quarter }}</td>
-                <td>{{ row.num_hired }}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+    <div class="container">
+        <h1>Hired Employees by Quarter</h1>
+        {% if data %}
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Department</th>
+                        <th>Job</th>
+                        <th>Q1</th>
+                        <th>Q2</th>
+                        <th>Q3</th>
+                        <th>Q4</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in data %}
+                        <tr>
+                            <td>{{ row.department }}</td>
+                            <td>{{ row.job }}</td>
+                            <td>{{ row.Q1 }}</td>
+                            <td>{{ row.Q2 }}</td>
+                            <td>{{ row.Q3 }}</td>
+                            <td>{{ row.Q4 }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>No data available for the specified date range.</p>
+        {% endif %}
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
