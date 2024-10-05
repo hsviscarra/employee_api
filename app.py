@@ -112,10 +112,10 @@ def hired_employees_by_quarter():
         query = text("""
         SELECT d.department, 
                 j.job,
-                COUNT(CASE WHEN EXTRACT(QUARTER FROM he.hire_date::timestamp) = 1 THEN 1 END) AS "Q1",
-                COUNT(CASE WHEN EXTRACT(QUARTER FROM he.hire_date::timestamp) = 2 THEN 1 END) AS "Q2",
-                COUNT(CASE WHEN EXTRACT(QUARTER FROM he.hire_date::timestamp) = 3 THEN 1 END) AS "Q3",
-                COUNT(CASE WHEN EXTRACT(QUARTER FROM he.hire_date::timestamp) = 4 THEN 1 END) AS "Q4"
+                COUNT(CASE WHEN EXTRACT(QUARTER FROM he.hire_date::timestamp) = 1 THEN he."ID" END) AS "Q1",
+                COUNT(CASE WHEN EXTRACT(QUARTER FROM he.hire_date::timestamp) = 2 THEN he."ID" END) AS "Q2",
+                COUNT(CASE WHEN EXTRACT(QUARTER FROM he.hire_date::timestamp) = 3 THEN he."ID" END) AS "Q3",
+                COUNT(CASE WHEN EXTRACT(QUARTER FROM he.hire_date::timestamp) = 4 THEN he."ID" END) AS "Q4"
         FROM hired_employees he
         JOIN departments d ON he.id_department = d."ID"
         JOIN jobs j ON he.id_job = j."ID"
