@@ -3,8 +3,8 @@ __pycache__/
 *.py[cod]
 
 # Ignore virtual environment
-venv/
-.venv/
+venv
+.venv
 
 # Ignore large files
 *.jpg
