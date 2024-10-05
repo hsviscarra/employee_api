@@ -180,7 +180,8 @@ def hired_employees_over_mean():
             for row in result
         ]
 
-        return jsonify(data), 200
+        #return jsonify(data), 200
+        return render_template('hired_employees_over_mean.html', data=data)
 
     except SQLAlchemyError as e:
         print(f"Error occurred: {str(e)}")
