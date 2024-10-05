@@ -1,6 +1,7 @@
 from dotenv import load_dotenv
 from flask import Flask, request, jsonify
-from sqlalchemy import create_engine, text  # Import text for raw SQL execution
+from sqlalchemy import create_engine, text
+from flask import render_template
 import pandas as pd
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.exc import SQLAlchemyError
@@ -133,7 +134,8 @@ def hired_employees_by_quarter():
             for row in result
         ]
 
-        return jsonify(data), 200
+        #return jsonify(data), 200
+        return render_template('hired_employees_by_quarter.html', data=data)
 
     except SQLAlchemyError as e:
         print(f"Error occurred: {str(e)}")
